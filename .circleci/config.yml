@@ -7,8 +7,8 @@ orbs:
 workflows:
   ci:
     jobs:
-      - poetry/build
+      - poetry/install
       - poetry/shell:
           args: pylint myapp/.
           requires:
-            - poetry/build
+            - poetry/install
