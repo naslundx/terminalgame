@@ -4,14 +4,11 @@ orbs:
   python: circleci/python@0.2.1
   poetry: frameio/poetry@0.14.3
 
-jobs:
-  - poetry/build
-  - poetry/shell:
-      args: pylint terminalgame/.
-      requires:
-        - poetry/build
-
 workflows:
-  main:
+  ci:
     jobs:
-      - build-and-test
+      - poetry/build
+      - poetry/shell:
+          args: pylint myapp/.
+          requires:
+            - poetry/build
