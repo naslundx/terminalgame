@@ -10,7 +10,7 @@ class World:
     class __World:
         def __init__(self, fps: int, render: bool = True):
             self.fps = fps
-            self._objects =  []
+            self._objects = []
             self._draw_queue = []
             self.running = True
             self._window = None
@@ -18,7 +18,7 @@ class World:
             self._key = None
 
             if render:
-                s = curses.initscr()
+                _ = curses.initscr()
                 curses.curs_set(0)
                 self._window = curses.newwin(self._height, self._width, 0, 0)
                 self._window.keypad(1)
@@ -29,7 +29,7 @@ class World:
 
             self._objects.append(obj)
             self._draw_queue.append((obj.x, obj.y, obj.sign))
-    
+
         def draw(self):
             while self._draw_queue:
                 x, y, s = self._draw_queue.pop()
@@ -38,7 +38,7 @@ class World:
                         self._window.addch(y, x, s)
                 else:
                     print(x, y, s)
-                
+
         def tick(self):
             # Handle keypress mapping
             key = self.keypress

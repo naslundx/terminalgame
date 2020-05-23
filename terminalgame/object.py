@@ -1,6 +1,5 @@
 from typing import Dict
 
-from terminalgame.actions import Action
 import terminalgame.world
 
 
@@ -52,6 +51,6 @@ class Object:
     @property
     def is_destroyed(self):
         return self._x is None and self._y is None
-    
+
     def __register(self):
         terminalgame.world.World.instance.register(self)

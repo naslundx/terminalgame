@@ -9,6 +9,6 @@ workflows:
     jobs:
       - poetry/install
       - poetry/shell:
-          args: pylint myapp/.
+          args: pylint terminalgame/
           requires:
             - poetry/install
