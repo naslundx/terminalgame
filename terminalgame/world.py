@@ -1,17 +1,19 @@
 from contextlib import contextmanager
 from time import sleep
+from typing import List, Tuple
 
 import curses
 
 from .actions import Action
+from .object import Object
 
 
 class World:
     class __World:
         def __init__(self, fps: int, render: bool = True):
             self.fps = fps
-            self._objects = []
-            self._draw_queue = []
+            self._objects: List[Object] = []
+            self._draw_queue: List[Tuple[int, int, str]] = []
             self.running = True
             self._window = None
             self._height, self._width = 50, 80  # s.getmaxyx()
@@ -21,10 +23,10 @@ class World:
                 _ = curses.initscr()
                 curses.curs_set(0)
                 self._window = curses.newwin(self._height, self._width, 0, 0)
-                self._window.keypad(1)
+                self._window.keypad(True)
                 self._window.timeout(1000 // self.fps)
 
-        def register(self, obj: 'Object'):
+        def register(self, obj: Object):
             assert obj not in self._objects
 
             self._objects.append(obj)
@@ -114,8 +116,6 @@ class World:
     @contextmanager
     def renderer(self):
         try:
-            print("yo")
             yield self
         finally:
-            print("lol")
             self.quit()

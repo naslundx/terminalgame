@@ -52,11 +52,8 @@ with world.renderer():
         for i, food in enumerate(foods):
             if snake.xy == food.xy:
                 ate_food = True
-                while food.xy in [t.xy for t in tail]:
-                    food.x, food.y = randint(1, world.width - 1), randint(1, world.height - 1)
-                break
-        
-        print(foods)
+            while food.xy in [t.xy for t in tail]:
+                food.x, food.y = randint(1, world.width - 1), randint(1, world.height - 1)
 
         if not ate_food:
             tail.pop().destroy()

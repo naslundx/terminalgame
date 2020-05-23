@@ -12,3 +12,7 @@ workflows:
           args: pylint terminalgame/
           requires:
             - poetry/install
+      - poetry/shell:
+          args: mypy .
+          requires:
+            - poetry/install
