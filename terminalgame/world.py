@@ -1,8 +1,7 @@
+import curses
 from contextlib import contextmanager
 from time import sleep
 from typing import List, Tuple
-
-import curses
 
 from .actions import Action
 from .object import Object
@@ -60,9 +59,9 @@ class World:
             # Update draw queue
             for obj in self._objects:
                 if obj.is_destroyed:
-                    self._draw_queue.append((obj._oldx, obj._oldy, ' '))
+                    self._draw_queue.append((obj._oldx, obj._oldy, " "))
                 elif obj.has_moved:
-                    self._draw_queue.append((obj._oldx, obj._oldy, ' '))
+                    self._draw_queue.append((obj._oldx, obj._oldy, " "))
                     self._draw_queue.append((obj.x, obj.y, obj.sign))
 
                 obj.tick()
@@ -102,7 +101,6 @@ class World:
         @property
         def keypress(self):
             return self._key if self._key != -1 else None
-
 
     instance = None
 

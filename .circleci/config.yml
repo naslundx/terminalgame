@@ -16,3 +16,7 @@ workflows:
           args: mypy .
           requires:
             - poetry/install
+      - poetry/shell:
+          args: isort . -rc -c
+          requires:
+            - poetry/install
