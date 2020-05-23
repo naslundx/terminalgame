@@ -5,6 +5,7 @@ import terminalgame.mappings
 from .actions import Action
 from .object import Object
 from .player import Player
+from .properties import Property
 from .world import World
 
 try:

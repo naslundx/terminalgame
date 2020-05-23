@@ -4,6 +4,7 @@ from time import sleep
 from typing import List, Tuple, TYPE_CHECKING
 
 from .actions import Action
+from .properties import Property
 
 if TYPE_CHECKING:
     from .object import Object
@@ -27,11 +28,17 @@ class World:
                 self._window.keypad(True)
                 self._window.timeout(1000 // self.fps)
 
-        def register(self, obj: Object):
+        def register(self, obj: "Object"):
             assert obj not in self._objects
 
             self._objects.append(obj)
             self._draw_queue.append((obj.x, obj.y, obj.sign))
+
+        def get_properties(self, x: int, y: int) -> List[Property]:
+            for o in self._objects:
+                if o.xy == (x, y) and not o.is_destroyed:
+                    return o.properties[:]
+            return []
 
         def draw(self):
             while self._draw_queue:
@@ -48,15 +55,18 @@ class World:
             if key:
                 for obj in (o for o in self._objects if o.mapping):
                     if key in obj.mapping:
+                        new_x, new_y = obj.x, obj.y
                         action = obj.mapping[key]
                         if action == Action.MOVE_UP:
-                            obj.y -= 1
+                            new_y -= 1
                         if action == Action.MOVE_DOWN:
-                            obj.y += 1
+                            new_y += 1
                         if action == Action.MOVE_LEFT:
-                            obj.x -= 1
+                            new_x -= 1
                         if action == Action.MOVE_RIGHT:
-                            obj.x += 1
+                            new_x += 1
+                        if Property.SOLID not in self.get_properties(new_x, new_y):
+                            obj.x, obj.y = new_x, new_y
 
             # Update draw queue
             for obj in self._objects:
@@ -83,11 +93,8 @@ class World:
 
             return self.running
 
-        def lose(self):
-            self.running = False
-            self.quit()
-
         def quit(self):
+            self.running = False
             if self._window:
                 curses.endwin()
                 self._window = False

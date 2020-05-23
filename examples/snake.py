@@ -28,7 +28,7 @@ with world.renderer():
 
         # Stop if we hit the edge or ourself
         if snake.x in (0, world.width) or snake.y in (0, world.height) or snake.xy in (t.xy for t in tail):
-            world.lose()
+            world.quit()
 
         # Move
         if key == curses.KEY_DOWN:

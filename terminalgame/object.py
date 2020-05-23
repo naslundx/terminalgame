@@ -1,16 +1,18 @@
-from typing import Dict
+from typing import Dict, List 
 
+from .properties import Property
 import terminalgame.world
 
 
 class Object:
-    def __init__(self, x: int, y: int, sign: str, mapping: Dict[str, terminalgame.Action] = None):
+    def __init__(self, x: int, y: int, sign: str, mapping: Dict[str, terminalgame.Action] = None, properties: List[Property] = None):
         assert len(sign) == 1
 
         self._oldx = self._x = x
         self._oldy = self._y = y
         self.sign = sign
-        self.mapping = mapping
+        self.mapping = mapping if mapping else {}
+        self.properties = properties if properties else []
 
         self.__register()
 
@@ -20,8 +22,9 @@ class Object:
 
     @x.setter
     def x(self, value):
-        self._oldx = self._x
-        self._x = value
+        if value != self._x:
+            self._oldx = self._x
+            self._x = value
 
     @property
     def y(self):
@@ -29,8 +32,9 @@ class Object:
 
     @y.setter
     def y(self, value):
-        self._oldy = self._y
-        self._y = value
+        if value != self._y:
+            self._oldy = self._y
+            self._y = value
 
     @property
     def xy(self):
