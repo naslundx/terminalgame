@@ -17,11 +17,7 @@ tail = [
 
 foods = []
 for _ in range(3):
-    foods.append(
-        terminalgame.Object(
-            x=randint(1, world.width - 1), y=randint(1, world.height - 1), sign="O"
-        )
-    )
+    foods.append(terminalgame.Object(x=randint(1, world.width - 1), y=randint(1, world.height - 1), sign="O"))
 
 key = curses.KEY_RIGHT
 
@@ -31,11 +27,7 @@ with world.renderer():
         key = key if not world.keypress else world.keypress
 
         # Stop if we hit the edge or ourself
-        if (
-            snake.x in (0, world.width)
-            or snake.y in (0, world.height)
-            or snake.xy in (t.xy for t in tail)
-        ):
+        if snake.x in (0, world.width) or snake.y in (0, world.height) or snake.xy in (t.xy for t in tail):
             world.lose()
 
         # Move

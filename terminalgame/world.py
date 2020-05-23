@@ -1,10 +1,12 @@
 import curses
 from contextlib import contextmanager
 from time import sleep
-from typing import List, Tuple
+from typing import List, Tuple, TYPE_CHECKING
 
 from .actions import Action
-from .object import Object
+
+if TYPE_CHECKING:
+    from .object import Object
 
 
 class World:

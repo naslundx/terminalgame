@@ -13,10 +13,14 @@ workflows:
           requires:
             - poetry/install
       - poetry/shell:
-          args: mypy .
+          args: mypy terminalgame/
           requires:
             - poetry/install
       - poetry/shell:
-          args: isort . -rc -c
+          args: isort terminalgame/ -rc -c
+          requires:
+            - poetry/install
+      - poetry/shell:
+          args: black terminalgame/ --check
           requires:
             - poetry/install
