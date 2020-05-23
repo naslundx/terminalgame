@@ -1,11 +1,18 @@
-from typing import Dict, List 
+from typing import Dict, List
 
 from .properties import Property
 import terminalgame.world
 
 
 class Object:
-    def __init__(self, x: int, y: int, sign: str, mapping: Dict[str, terminalgame.Action] = None, properties: List[Property] = None):
+    def __init__(
+        self,
+        x: int,
+        y: int,
+        sign: str,
+        mapping: Dict[str, terminalgame.Action] = None,
+        properties: List[Property] = None,
+    ):
         assert len(sign) == 1
 
         self._oldx = self._x = x

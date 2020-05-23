@@ -14,7 +14,7 @@ class World:
     class __World:
         def __init__(self, fps: int, render: bool = True):
             self.fps = fps
-            self._objects: List[Object] = []
+            self._objects: List["Object"] = []
             self._draw_queue: List[Tuple[int, int, str]] = []
             self.running = True
             self._window = None
